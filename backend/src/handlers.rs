@@ -14,29 +14,11 @@ pub async fn root() -> String {
 pub async fn get_questions(
     State(am_database): State<AppDatabase>,
 ) -> Result<Json<Vec<Question>>, AppError> {
-    let mut questions = am_database.questions.lock().expect("Poisoned mutex");
-    let db_count = questions.len() as usize;
-    let question = Question::new(
-        QuestionId(db_count),
-        "Default Question".to_string(),
-        "Default Content".to_string(),
-        Some(vec!["default".to_string()]),
-    );
-
-    (*questions).push(question.clone());
+    let questions = am_database.questions.lock().expect("Poisoned mutex");
 
     let all_questions: Vec<Question> = (*questions).clone();
 
-    // This will currently always be true, of course
-    #[allow(irrefutable_let_patterns)] //example code
-    if let _ = question.id.0 as i32 {
-        // If our question was found, we send it to the client
         Ok(Json(all_questions))
-    } else {
-        // Otherwise we send our error instead.
-        // This will auto-populate the message for us
-        Err(AppError::Question(QuestionError::InvalidId))
-    }
 }
 
 pub async fn get_question_by_id(
@@ -79,6 +61,8 @@ pub async fn delete_question(
 ) -> Result<(), AppError> {
     let mut questions = am_database.questions.lock().expect("Poisoned mutex");
 
-    questions.retain(|q| q.id.0 == query.question_id);
+    let to_delete = questions.iter().position(|q| q.id.0 == query.question_id).unwrap();
+    questions.remove(to_delete);
+
     Ok(())
 }
