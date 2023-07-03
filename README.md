@@ -14,7 +14,7 @@
 - *Discovery:* I found this bug by using Postman. I also added code to the client portion of the application to verify I was receiving the same results.
 - *Why:* I believe the bug is occurring primarily based on the code on lines 18-26 (of backend/src/handlers.rs).
 - *How to Reproduce:* After starting up the backend API, simplest way to reproduce is to point a web browser to http://localhost:8088/questions. The default question should be displayed in JSON format. Refreshing this screen in the browser should display more results (duplicates of the default question) in JSON.
-
+- *Fix Recommended:* Create a Default Question into the mock database only when it is empty.
 
 
 **Bug 2**
@@ -32,3 +32,4 @@
 	4. Under Params, create a Query Param called "question_id" under Key
 	5. Under Value, enter the question_id you wish to delete
 	6. Click Send
+- *Fix Recommended:* Delete ONLY the question specified by the question_id.
