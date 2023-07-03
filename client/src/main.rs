@@ -33,17 +33,17 @@ async fn main() {
     let mut get_questions = test_api("http://localhost:8088/questions");
     let mut questions_arr = get_questions.await.unwrap().json::<Vec<Question>>().await.unwrap();
     let length = questions_arr.len() as usize;
-    println!("\nDISPLAYING ALL QUESTIONS FROM API");
+    println!("\nTest 1: DISPLAYING ALL QUESTIONS FROM API");
     output_questions(questions_arr);
 
-    let _last_question_id = length - 1;
+    let mut last_question_id: usize = length - 1;
     let mut url_path: String = "http://localhost:8088/question?question_id=".to_owned();
-    let id_string: String = _last_question_id.to_string();
+    let id_string: String = last_question_id.to_string();
     url_path.push_str(&id_string);
     let get_last_question = test_api(&url_path);
     let question = get_last_question.await.unwrap().json::<Question>().await.unwrap();
     let vc= vec![question];
-    println!("\nDISPLAYING LAST QUESTION FROM API");
+    println!("\nTest 2: DISPLAYING LAST QUESTION FROM API");
     output_questions(vc);
 
     let question_content: String = "new question content2".to_string();
@@ -64,19 +64,25 @@ async fn main() {
         .send()
         .await;
 
-    println!("NEW QUESTION CREATED/SAVED");
+    println!("\nTest 3: NEW QUESTION CREATED/SAVED");
     get_questions = test_api("http://localhost:8088/questions");
     questions_arr = get_questions.await.unwrap().json::<Vec<Question>>().await.unwrap();
-    println!("\nDISPLAYING ALL QUESTIONS AGAIN FROM API");
+    println!("\nTest 4: DISPLAYING ALL QUESTIONS AGAIN FROM API");
+    last_question_id = (questions_arr.len() as usize) - 1;
+
     output_questions(questions_arr);
 
-    let del_url_path: String = "http://localhost:8088/question?question_id=0".to_owned();
+    let mut del_url_path: String = "http://localhost:8088/question?question_id=".to_owned();
+    let id_string2: String = last_question_id.to_string();
+    del_url_path.push_str(&id_string2);
+
+
    _res = client.delete(del_url_path).send().await;
 
-    println!("DELETED FIRST QUESTION");
+    println!("\nTest 5: DELETED LAST QUESTION");
     get_questions = test_api("http://localhost:8088/questions");
     questions_arr = get_questions.await.unwrap().json::<Vec<Question>>().await.unwrap();
-    println!("\nDISPLAYING ALL QUESTIONS AGAIN FROM API");
+    println!("\nTest 6: DISPLAYING ALL QUESTIONS AGAIN FROM API");
     output_questions(questions_arr);
 
 }
