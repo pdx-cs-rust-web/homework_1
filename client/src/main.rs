@@ -5,7 +5,7 @@ use reqwest::{Client, Method, Response};
 /// Create a reqwest client
 /// let client = Client::new();
 /// Make a GET HTTP request to our backend's /example route
-/// let res = client.get("http://localhost:8088/example").await?;
+/// let res = client.get("http://localhost:8088/example").send().await?;
 ///
 /// Get the response from backend's data
 /// let body = res.text().await?;
@@ -17,7 +17,7 @@ use reqwest::{Client, Method, Response};
 ///     .post("http://localhost:8088/example")
 ///     .header("Content-Type", "application/json")
 ///     .body("Example Body")
-///     .await?;
+///     .send().await?;
 ///
 /// let body = res.text().await?;
 /// println!("POST Response: {}", body);
