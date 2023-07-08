@@ -2,6 +2,7 @@
 Bart Massey and Casey Bailey 2023
 
 * `GET` `/`: Front page.
+
 * `GET` `/questions`: Get list of questions.
 
   Each question has an integer `id`, a string `title`, some
@@ -37,7 +38,7 @@ Bart Massey and Casey Bailey 2023
 
   This accepts a JSON question consisting of a string
   `title`, some string `content`, and optionally a list of
-  string `tags`. The result is the question together with a
+  string `tags`. The result is the question with its
   new integer question `id`.
 
 
@@ -52,6 +53,7 @@ Bart Massey and Casey Bailey 2023
   Example response:
 
       {
+          "id": 17,
           "title": "Sample Question",
           "content": "What, another sample question?",
           "tag": ["dumb", "sample"]
