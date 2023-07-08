@@ -57,6 +57,6 @@ Bart Massey and Casey Bailey 2023
           "tag": ["dumb", "sample"]
       }
 
-* `DELETE` `/question?<id>`: Delete question by id, if present.
+* `DELETE` `/question?question_id=<id>`: Delete question by id, if present.
 
   Example DELETE query: `https://example.org/question?7`
