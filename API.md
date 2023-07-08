@@ -18,11 +18,11 @@ Bart Massey and Casey Bailey 2023
           }
       ]
 
-* `GET` `/question?<id>`: Get question by id.
+* `GET` `/question?question_id=<id>`: Get question by id.
 
   This returns a question in the format described by `GET` `questions`.
 
-  Example query: `https://example.org/question?7`
+  Example query: `https://example.org/question?question_id=7`
 
   Example response:
 
