@@ -21,9 +21,12 @@ pub async fn get_questions(
         "Default Question".to_string(),
         "Default Content".to_string(),
         Some(vec!["default".to_string()]),
-    );
+        );
 
-    (*questions).push(question.clone());
+    // create default question if only mock database is empty
+    if db_count == 0 {
+        (*questions).push(question.clone());
+    }
 
     let all_questions: Vec<Question> = (*questions).clone();
 
@@ -79,6 +82,8 @@ pub async fn delete_question(
 ) -> Result<(), AppError> {
     let mut questions = am_database.questions.lock().expect("Poisoned mutex");
 
-    questions.retain(|q| q.id.0 == query.question_id);
+    let to_delete = questions.iter().position(|q| q.id.0 == query.question_id).unwrap();
+    questions.remove(to_delete);
+
     Ok(())
 }
