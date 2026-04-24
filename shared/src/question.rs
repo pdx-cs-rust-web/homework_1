@@ -5,13 +5,7 @@ use serde_derive::{Deserialize, Serialize};
 
 // This uses the `derive_more` crate to reduce the Display boilerplate (see below)
 #[derive(Clone, Debug, Display, Serialize, Deserialize)]
-#[display(
-    fmt = "id: {}, title: {}, content: {}, tags: {:?}",
-    id,
-    title,
-    content,
-    tags
-)]
+#[display("id: {}, title: {}, content: {}, tags: {:?}", id, title, content, tags)]
 pub struct Question {
     pub id: QuestionId,
     pub title: String,

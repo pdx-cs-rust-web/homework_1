@@ -1,9 +1,9 @@
 use axum::{
+    body::Body,
     http::{Response, StatusCode},
     routing::*,
     Router,
 };
-use hyper::Body;
 
 use crate::db::AppDatabase;
 use crate::handlers;

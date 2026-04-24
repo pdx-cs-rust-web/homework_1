@@ -1,4 +1,4 @@
-use reqwest::{Client, Method, Response};
+use reqwest::Client;
 
 /// example code
 ///
@@ -26,7 +26,7 @@ use reqwest::{Client, Method, Response};
 #[tokio::main]
 async fn main() {
     // Create a reqwest client
-    let client = Client::new();
+    let _client = Client::new();
 
-   // Your code here!
+    // Your code here!
 }

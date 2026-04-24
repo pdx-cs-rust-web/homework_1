@@ -42,8 +42,10 @@ async fn run() {
     let app = routes::get_router().layer(cors_layer).layer(trace_layer);
 
     // Start the server!
-    axum::Server::bind(&addr)
-        .serve(app.into_make_service())
+    let listener = tokio::net::TcpListener::bind(addr)
+        .await
+        .expect("Could not bind to address");
+    axum::serve(listener, app.into_make_service())
         .await
         .expect("Rust server died, must be hardware issue");
 }

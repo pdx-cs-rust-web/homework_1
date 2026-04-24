@@ -15,7 +15,7 @@ pub async fn get_questions(
     State(am_database): State<AppDatabase>,
 ) -> Result<Json<Vec<Question>>, AppError> {
     let mut questions = am_database.questions.lock().expect("Poisoned mutex");
-    let db_count = questions.len() as usize;
+    let db_count = questions.len();
     let question = Question::new(
         QuestionId(db_count),
         "Default Question".to_string(),
@@ -59,7 +59,7 @@ pub async fn create_question(
     Json(question): Json<CreateQuestion>,
 ) -> Result<Json<Question>, AppError> {
     let mut questions = am_database.questions.lock().expect("Poisoned mutex");
-    let db_count = questions.len() as usize;
+    let db_count = questions.len();
     let question_with_id = Question::new(
         QuestionId(db_count),
         question.content,
