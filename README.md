@@ -5,12 +5,11 @@ This Rust workspace contains an Axum HTTP server, a command-line client, and sha
 
 ## Run
 
-Install a current Rust toolchain, then start the server from the `backend` repository root:
+Install a current Rust toolchain, then start the server from the repository root:
 
 ```sh
-cd backend
-cp env.example .env
-cargo run
+cp backend/env.example backend/.env
+cargo run -p backend
 ```
 
 In another terminal, run the client:

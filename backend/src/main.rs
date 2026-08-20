@@ -3,7 +3,7 @@ use std::{
     str::FromStr,
 };
 
-use dotenvy::dotenv;
+use dotenvy::from_path;
 use tracing::{debug, info};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
@@ -16,8 +16,9 @@ mod routes;
 
 #[tokio::main]
 async fn main() {
-    // Collect environment variables from a .env file
-    dotenv().ok();
+    // Load the backend's environment file regardless of the working directory.
+    from_path(concat!(env!("CARGO_MANIFEST_DIR"), "/.env"))
+        .expect("Could not load backend/.env");
     // Initialize tokio's logging/tracing
     init_logging();
     debug!("Application initialized.");
